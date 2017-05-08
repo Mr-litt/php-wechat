@@ -2,6 +2,7 @@
 
 namespace wechat\app\Interaction;
 use wechat\app\Message\AbstractMessage;
+use wechat\app\Message\News;
 use wechat\app\Message\Text;
 use wechat\app\Support\MessageFormat;
 use wechat\app\Support\Xml;
@@ -29,11 +30,21 @@ class Response extends AbstractInteraction
 
 
     public function setMessageHandler($message){
-        if (is_string($message)) {
-            $message = new Text(['content' => $message]);
+        if(is_array($message)){
+            foreach ($message as $key=>$value){
+                if(!($value instanceof News)){
+                    unset($message[$key]);
+                }
+            }
+            $class = News::class;
+        }else{
+            if (is_string($message)) {
+                $message = new Text(['content' => $message]);
+            }
+            $class = get_class($message);
         }
 
-        if($message instanceof AbstractMessage){
+        if(is_subclass_of($class,AbstractMessage::class)){
             $this->content = $this->buildReply($this->getFrom(),$this->getTo(),$message);
         }
     }
