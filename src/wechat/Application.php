@@ -1,7 +1,9 @@
 <?php
 namespace wechat;
+use wechat\app\Core\Container;
 use wechat\app\Interaction\Request;
 use wechat\app\Interaction\Response;
+use wechat\app\Wechat;
 use wechat\components\Config;
 
 /**
@@ -34,7 +36,9 @@ class Application
 
     public function __construct($options)
     {
+        $this->container = new Container();
         $this->init($options);
+        Wechat::$app = $this;
     }
 
     private function init($options){
@@ -46,22 +50,12 @@ class Application
         Config::set(array_merge($configs,$options));
     }
 
-    private function registerProvider($name)
-    {
-        $provider = $this->providers[$name];
-        $this->container[$name] = new $provider();
-        return $this->container[$name];
-    }
-
     private function getProvider($name)
     {
         if(!array_key_exists($name,$this->providers)){
             return null;
         }
-        if(!isset($this->container[$name])){
-            $this->registerProvider($name);
-        }
-        return $this->container[$name];
+        return $this->container->get($this->providers[$name]);
     }
 
 
