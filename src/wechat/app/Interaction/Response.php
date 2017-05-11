@@ -6,6 +6,7 @@ use wechat\app\Message\News;
 use wechat\app\Message\Text;
 use wechat\app\Support\MessageFormat;
 use wechat\app\Support\Xml;
+use wechat\app\Wechat;
 
 
 /**
@@ -45,7 +46,8 @@ class Response extends AbstractInteraction
         }
 
         if(is_subclass_of($class,AbstractMessage::class)){
-            $this->content = $this->buildReply($this->getFrom(),$this->getTo(),$message);
+            $request = Wechat::$app->request;
+            $this->content = $this->buildReply($request->ToUserName,$request->FromUserName,$message);
         }
     }
 
