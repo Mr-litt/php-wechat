@@ -1,17 +1,18 @@
 <?php
 
+/**
+ * Request.php
+ *
+ * @author  Mr.litt<137057181@qq.com>
+ * @date    17-4-28
+ */
+
 namespace wechat\app\Interaction;
 use wechat\app\Support\Xml;
 use wechat\components\Config;
 use wechat\components\Input;
 use wechat\components\Log;
 
-/**
- * Created by IntelliJ IDEA.
- * User: lihaitao
- * Date: 17-4-28
- * Time: 下午3:23
- */
 
 /**
  * Class Request
@@ -38,13 +39,10 @@ class Request extends AbstractInteraction
                 {
                     throw new \Exception("不合法的数据");
                 }
-                $this->setTo($this->ToUserName);
-                $this->setFrom($this->FromUserName);
             }
         }  catch (\Exception $e){
             Log::error(file_get_contents("php://input"));
         }
-
     }
 
     private function bind(){

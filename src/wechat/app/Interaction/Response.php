@@ -1,20 +1,20 @@
 <?php
 
+/**
+ * Request.php
+ *
+ * @author  Mr.litt<137057181@qq.com>
+ * @date    17-4-28
+ */
+
 namespace wechat\app\Interaction;
-use wechat\app\Message\AbstractMessage;
-use wechat\app\Message\News;
-use wechat\app\Message\Text;
+use wechat\app\Support\Message\AbstractMessage;
+use wechat\app\Support\Message\News;
+use wechat\app\Support\Message\Text;
 use wechat\app\Support\MessageFormat;
 use wechat\app\Support\Xml;
 use wechat\app\Wechat;
 
-
-/**
- * Created by IntelliJ IDEA.
- * User: lihaitao
- * Date: 17-4-28
- * Time: 下午3:24
- */
 class Response extends AbstractInteraction
 {
 

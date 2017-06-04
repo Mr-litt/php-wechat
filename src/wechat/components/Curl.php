@@ -13,15 +13,25 @@ namespace wechat\components;
 class Curl
 {
     /**
-     * post
      * @param $url
      * @param array $postFields
      * @param array $header
+     * @param string $file_path
      * @return mixed
      */
-    public static function post($url,$postFields=[],$header =[]){
+    public static function post($url, $postFields = [], $file_path = '', $header =[]){
         if(is_array($postFields)) $postFields = http_build_query($postFields);
+
         $ch = curl_init();
+        if($file_path){
+            if(class_exists("CURLFile")){
+                $postFields= array("media"=>new \CURLFile($file_path));
+            }else{
+                $postFields= array("media"=>"@".$file_path);
+                curl_setopt ( $ch, CURLOPT_SAFE_UPLOAD, false);
+            }
+        }
+
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
@@ -41,8 +51,8 @@ class Curl
      * @param array $getFields
      * @return mixed
      */
-    public static function get($url,$getFields=[]){
-        $getFields = http_build_query($getFields);
+    public static function get($url, $getFields = []){
+        if ($getFields) $getFields = http_build_query($getFields);
         $ch = curl_init();
         $url .='?'.$getFields;
         curl_setopt($ch, CURLOPT_POST, 0);

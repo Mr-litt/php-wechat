@@ -9,7 +9,6 @@
 
 namespace wechat\app\AccessToken;
 
-
 use wechat\app\Core\Api;
 
 abstract class AbstractAccessToken extends Api

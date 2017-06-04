@@ -1,5 +1,4 @@
 <?php
-namespace wechat\app\AccessToken;
 
 /**
  * AccessToken.php
@@ -8,12 +7,8 @@ namespace wechat\app\AccessToken;
  * @date    17-5-11
  */
 
+namespace wechat\app\AccessToken;
 
-/**
- * Class AccessToken
- * @package wechat\app\AccessToken
- *
- */
 class AccessToken extends AbstractAccessToken
 {
     const ACCESS_TOKEN_GET = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET';

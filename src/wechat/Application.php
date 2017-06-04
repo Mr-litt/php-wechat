@@ -1,17 +1,18 @@
 <?php
+
+/**
+ * Application.php
+ *
+ * @author  Mr.litt<137057181@qq.com>
+ * @date    17-4-28
+ */
+
 namespace wechat;
 use wechat\app\Core\Container;
 use wechat\app\Interaction\Request;
 use wechat\app\Interaction\Response;
 use wechat\app\Wechat;
 use wechat\components\Config;
-
-/**
- * Created by IntelliJ IDEA.
- * User: lihaitao
- * Date: 17-4-28
- * Time: 下午3:11
- */
 
 /**
  * Class Application

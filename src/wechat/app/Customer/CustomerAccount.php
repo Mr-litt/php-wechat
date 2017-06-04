@@ -1,14 +1,17 @@
 <?php
 
-namespace wechat\app\Customer;
-use wechat\app\Core\Api;
-
 /**
  * CustomerAccount.php
  *
  * @author  Mr.litt<137057181@qq.com>
  * @date    17-5-12
  */
+
+
+namespace wechat\app\Customer;
+use wechat\app\Core\Api;
+
+
 class CustomerAccount extends Api
 {
     const API_ADD = 'https://api.weixin.qq.com/customservice/kfaccount/add?access_token=ACCESS_TOKEN';
@@ -19,19 +22,19 @@ class CustomerAccount extends Api
 
 
     public function add($info){
-        return $this->http(self::API_ADD,$info);
+        return $this->http(self::API_ADD, Api::HTTP_TYPE_POST, $info);
     }
 
     public function update($info){
-        return $this->http(self::API_UPDATE,$info);
+        return $this->http(self::API_UPDATE, Api::HTTP_TYPE_POST, $info);
     }
 
     public function del($info){
-        return $this->http(self::API_DEL,$info);
+        return $this->http(self::API_DEL, Api::HTTP_TYPE_POST, $info);
     }
 
     public function uploadHeadImg($account,$path){
-        return $this->http(self::API_UPLOAD_HEAD_IMG,$account,$path);
+        return $this->http($this->buildUrl(self::API_UPLOAD_HEAD_IMG, ['KFACCOUNT' => $account]), Api::HTTP_TYPE_POST, [], $path);
     }
 
     public function get(){

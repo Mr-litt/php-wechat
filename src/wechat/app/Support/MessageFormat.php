@@ -1,19 +1,21 @@
 <?php
+
 /**
- * Created by IntelliJ IDEA.
- * User: lihaitao
- * Date: 17-5-3
- * Time: 下午5:18
+ * MessageFormat.php
+ *
+ * @author  Mr.litt<137057181@qq.com>
+ * @date    17-5-3
  */
 
 namespace wechat\app\Support;
 
-
-use wechat\app\Message\AbstractMessage;
-use wechat\app\Message\News;
+use wechat\app\Support\Message\AbstractMessage;
+use wechat\app\Support\Message\News;
 
 class MessageFormat
 {
+
+    public $is_customer = false;
 
     /**
      * @param AbstractMessage $message
@@ -21,7 +23,9 @@ class MessageFormat
      */
     public function transform($message){
         $class = get_class($message);
-        $handle = 'format'.ucfirst(substr($class, strlen('wechat\app\Message\\')));
+        $prefix = 'format';
+        $this->is_customer && $prefix = $prefix.'Customer';
+        $handle = $prefix.ucfirst(substr($class, strlen('wechat\app\Message\\')));
         return method_exists($this,$handle)?$this->$handle($message):[];
     }
 
@@ -30,10 +34,19 @@ class MessageFormat
      * @param AbstractMessage $message
      * @return array
      */
-    public function formatText($message)
-    {
+    public function formatText($message){
         return [
             'Content' => $message->get('content'),
+        ];
+    }
+
+    /**
+     * @param AbstractMessage $message
+     * @return array
+     */
+    public function formatCustomerText($message) {
+        return [
+            'text' => ["content" => $message->get('content')],
         ];
     }
 
@@ -48,6 +61,19 @@ class MessageFormat
         ];
     }
 
+
+    /**
+     * @param AbstractMessage $message
+     * @return array
+     */
+    public function formatCustomerImage($message)
+    {
+        return [
+            'image' => ["media_id"=>$message->get('media_id')],
+        ];
+    }
+
+
     /**
      * @param AbstractMessage $message
      * @return array
@@ -56,6 +82,18 @@ class MessageFormat
     {
         return [
             'Voice' => ["MediaId"=>$message->get('media_id')],
+        ];
+    }
+
+
+    /**
+     * @param AbstractMessage $message
+     * @return array
+     */
+    public function formatCustomerVoice($message)
+    {
+        return [
+            'voice' => ["media_id"=>$message->get('media_id')],
         ];
     }
 
@@ -70,6 +108,22 @@ class MessageFormat
                 "MediaId"=>$message->get('media_id'),
                 "Title"=>$message->get('title'),
                 "Description"=>$message->get('description'),
+            ],
+        ];
+    }
+
+    /**
+     * @param AbstractMessage $message
+     * @return array
+     */
+    public function formatCustomerVideo($message)
+    {
+        return [
+            'Video' => [
+                "media_id" => $message->get('media_id'),
+                "thumb_media_id" => $message->get('media_id'),
+                "title" => $message->get('title'),
+                "description" => $message->get('description'),
             ],
         ];
     }
@@ -91,6 +145,25 @@ class MessageFormat
             ],
         ];
     }
+
+
+    /**
+     * @param AbstractMessage $message
+     * @return array
+     */
+    public function formatCustomerMusic($message)
+    {
+        return [
+            'music' => [
+                "title"=>$message->get('title'),
+                "description"=>$message->get('description'),
+                "musicurl"=>$message->get('music_url'),
+                "hqmusicurl"=>$message->get('hq_music_url'),
+                "thumb_media_id"=>$message->get('media_id'),
+            ],
+        ];
+    }
+
 
     /**
      * @param \ArrayObject $message
@@ -114,6 +187,42 @@ class MessageFormat
         return [
             "ArticleCount"=>count($articles),
             "Articles"=>$articles,
+        ];
+    }
+
+
+
+    /**
+     * @param \ArrayObject $message
+     * @return array
+     */
+    public function formatCustomerNews($message)
+    {
+        $articles = [];
+        /** @var News $new */
+        foreach ($message as $new){
+            $articles[] = [
+                "title"=>$new->get('title'),
+                "description"=>$new->get('description'),
+                "picurl"=>$new->get('picurl'),
+                "url"=>$new->get('url'),
+            ];
+        }
+
+        return [
+            "news" => ["articles" => $articles],
+        ];
+    }
+
+
+    /**
+     * @param AbstractMessage $message
+     * @return array
+     */
+    public function formatCustomerCard($message)
+    {
+        return [
+            "wxcard" => ["card_id" => $message->get('card_id')],
         ];
     }
 

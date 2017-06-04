@@ -1,14 +1,15 @@
 <?php
+
+/**
+ * Menu.php
+ *
+ * @author  Mr.litt<137057181@qq.com>
+ * @date    17-5-12
+ */
+
 namespace wechat\app\Menu;
 use wechat\app\Core\Api;
 
-
-/**
- * Created by IntelliJ IDEA.
- * User: lihaitao
- * Date: 17-5-2
- * Time: 下午6:07
- */
 class Menu extends Api
 {
 
@@ -17,8 +18,7 @@ class Menu extends Api
     const API_DELETE = 'https://api.weixin.qq.com/cgi-bin/menu/delete?access_token=ACCESS_TOKEN';
 
     public function create($menu){
-        $menu = json_encode($menu);
-        $this->http(self::API_CREATE,"post",$menu);
+        $this->http(self::API_CREATE, Api::HTTP_TYPE_POST, $menu);
     }
 
     public function get(){

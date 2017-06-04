@@ -1,9 +1,10 @@
 <?php
+
 /**
- * Created by IntelliJ IDEA.
- * User: lihaitao
- * Date: 17-5-3
- * Time: 下午2:27
+ * AbstractInteraction.php
+ *
+ * @author  Mr.litt<137057181@qq.com>
+ * @date    17-5-3
  */
 
 namespace wechat\app\Interaction;

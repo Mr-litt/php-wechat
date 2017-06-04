@@ -1,11 +1,14 @@
 <?php
-namespace wechat\components;
+
 /**
- * Created by IntelliJ IDEA.
- * User: lihaitao
- * Date: 17-4-28
- * Time: 下午3:25
+ * Log.php
+ *
+ * @author  Mr.litt<137057181@qq.com>
+ * @date    17-4-28
  */
+
+namespace wechat\components;
+
 class Log
 {
     const LEVEL_ERROR  = "error";
