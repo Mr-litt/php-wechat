@@ -1,12 +1,13 @@
 <?php
+
 /**
- * Created by IntelliJ IDEA.
- * User: lihaitao
- * Date: 17-5-8
- * Time: 下午4:04
+ * Video.php
+ *
+ * @author  Mr.litt<137057181@qq.com>
+ * @date    17-5-8
  */
 
-namespace wechat\app\Message;
+namespace wechat\app\Support\Message;
 
 
 class Video extends AbstractMessage

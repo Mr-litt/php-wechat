@@ -1,13 +1,15 @@
 <?php
-namespace wechat\app\Message;
-use wechat\app\Core\Collection;
 
 /**
- * Created by IntelliJ IDEA.
- * User: tao
- * Date: 2017/5/2
- * Time: 22:29
+ * AbstractMessage.php
+ *
+ * @author  Mr.litt<137057181@qq.com>
+ * @date    17-5-2
  */
+
+namespace wechat\app\Support\Message;
+use wechat\app\Core\Collection;
+
 abstract class AbstractMessage extends Collection
 {
     protected $type;
