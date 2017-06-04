@@ -8,7 +8,7 @@
  */
 
 return [
-    'debug'     => true,
+    'debug'     => false,
     'log' => [
         'level' => 'info',
         'path'  => '/tmp/app.log',

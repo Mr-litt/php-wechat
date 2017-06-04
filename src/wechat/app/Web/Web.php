@@ -21,16 +21,17 @@ class Web extends Api
 
 
     public function oAuth() {
-        if (!$_SESSION['open_id']) {//获取open_id
+        session_start();
+        if (!isset($_SESSION['open_id']) || $_SESSION['open_id'] == '') {//获取open_id
             $code = Input::get('code','');
             if(empty($code)){
-                $redirect = Url::curPageURL();
+                $redirect = urlencode(Url::curPageURL());
                 $url = $this->buildUrl(self::SNSAPI_BASE, ['APPID' => $this->app_id, 'REDIRECT_URI' => $redirect]);
                 header("Location:".$url);
                 exit;
             }
 
-            $token_url = str_replace('CODE',$code,self::WEB_ACCESS_TOKEN);
+            $token_url = $this->buildUrl(self::WEB_ACCESS_TOKEN, ['CODE' => $code]);
             $result = $this->http($token_url,'get');
             if(isset($result['openid'])){
                 $_SESSION['open_id'] = $result['openid'];

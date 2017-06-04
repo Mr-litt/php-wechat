@@ -11,6 +11,7 @@ namespace wechat;
 use wechat\app\Core\Container;
 use wechat\app\Interaction\Request;
 use wechat\app\Interaction\Response;
+use wechat\app\Web\Web;
 use wechat\app\Wechat;
 use wechat\components\Config;
 
@@ -20,6 +21,7 @@ use wechat\components\Config;
  *
  * @property Request request
  * @property Response response
+ * @property Web web
  *
  */
 class Application
@@ -29,6 +31,7 @@ class Application
     protected $providers = [
         "request"=>app\Interaction\Request::class,
         "response"=>app\Interaction\Response::class,
+        "web"=>app\Web\Web::class,
     ];
 
     protected $configs = [

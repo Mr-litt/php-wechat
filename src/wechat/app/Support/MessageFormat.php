@@ -25,7 +25,7 @@ class MessageFormat
         $class = get_class($message);
         $prefix = 'format';
         $this->is_customer && $prefix = $prefix.'Customer';
-        $handle = $prefix.ucfirst(substr($class, strlen('wechat\app\Message\\')));
+        $handle = $prefix.ucfirst(substr($class, strlen('wechat\app\Support\Message\\')));
         return method_exists($this,$handle)?$this->$handle($message):[];
     }
 

@@ -47,7 +47,7 @@ class Response extends AbstractInteraction
 
         if(is_subclass_of($class,AbstractMessage::class)){
             $request = Wechat::$app->request;
-            $this->content = $this->buildReply($request->ToUserName,$request->FromUserName,$message);
+            $this->content = $this->buildReply($request->FromUserName, $request->ToUserName, $message);
         }
     }
 
