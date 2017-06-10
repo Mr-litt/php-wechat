@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <a class="pay_btn">立即付款</a>
+</body>
+<script>
+    $('.pay_btn').on('click',function() {
+        $.ajax({
+            url: 'getJsApiParameters',//获取js参数
+            type: 'GET',
+            dataType: 'json',
+            data: {},
+            success: function (data) {
+                var wx_data = data.jsApiParameters;
+                //delete data.appId;
+                wx_data.timestamp = wx_data.timeStamp;
+                delete wx_data.timeStamp;
+                wx_data.success = function () {
+                    //支付成功后执行
+                    alert('支付成功，页面立即跳转');
+                    var url = 'success_page';
+                    setTimeout("window.location.href = '" + url + "'", 2000);
+                };
+                //调用微信支付控件
+                wx.chooseWXPay(wx_data);
+            }
+        });
+    });
+</script>
+
+
+</html>

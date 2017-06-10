@@ -20,6 +20,7 @@ use wechat\components\Curl;
  * @property string $app_id
  * @property string $secret
  * @property string $access_token
+ * @property string $jsapi_ticket
  */
 class Api extends Base
 {
@@ -92,5 +93,13 @@ class Api extends Base
 
     public function getAccess_token(){
         return Wechat::$app->access_token->get();
+    }
+
+    public function getJs_Access_token(){
+        return Wechat::$app->access_token->get();
+    }
+
+    public function getJsapi_ticket(){
+        return Wechat::$app->jsapi_ticket->get();
     }
 }

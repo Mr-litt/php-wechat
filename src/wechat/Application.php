@@ -46,6 +46,7 @@ class Application
     }
 
     private function init($options){
+        define("WECHAT_ROOT",__DIR__);
         $configs = [];
         foreach ($this->configs as $value){
             $config = include $value;
