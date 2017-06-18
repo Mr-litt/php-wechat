@@ -15,7 +15,7 @@ class AccessToken extends AbstractAccessToken
 
     public function get(){
         $cache = $this->getCache(AccessToken::class);
-        if(empty($cache) || $cache['update_time']+$cache['expire_in'] <= time()){
+        if(empty($cache) || $cache['update_time']+$cache['expires_in'] <= time()){
             $cache = $this->set();
         }
         return $cache['access_token'];

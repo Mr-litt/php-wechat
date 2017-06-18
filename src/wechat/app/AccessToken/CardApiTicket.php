@@ -8,26 +8,26 @@
 
 namespace wechat\app\AccessToken;
 
-class JsApiTicket extends AbstractAccessToken
+class CardApiTicket extends AbstractAccessToken
 {
 
-    const JA_ACCESS_TOKEN_GET = 'https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=ACCESS_TOKEN&type=jsapi';
+    const CARD_ACCESS_TOKEN_GET = 'https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=ACCESS_TOKEN&type=wx_card';
 
     public function get(){
-        $cache = $this->getCache(JsApiTicket::class);
+        $cache = $this->getCache(CardApiTicket::class);
         if(empty($cache) || $cache['update_time']+$cache['expires_in'] <= time()){
             $cache = $this->set();
         }
-        return $cache['js_api_ticket'];
+        return $cache['card_api_ticket'];
     }
 
     private function set(){
         $cache = [];
-        $result = $this->http(self::JA_ACCESS_TOKEN_GET);
+        $result = $this->http(self::CARD_ACCESS_TOKEN_GET);
         $cache["update_time"] = time();
-        $cache["js_api_ticket"] = $result->ticket;
+        $cache["card_api_ticket"] = $result->ticket;
         $cache["expires_in"] = $result->expires_in;
-        $this->setCache(JsApiTicket::class,$cache);
+        $this->setCache(CardApiTicket::class,$cache);
         return $cache;
     }
 }

@@ -10,20 +10,19 @@
 namespace wechat\app\AccessToken;
 
 use wechat\app\Core\Api;
+use wechat\components\FileCache;
 
 abstract class AbstractAccessToken extends Api
 {
 
-    public function getCache($key){
-        if(isset($_SESSION[$key])){
-            return $_SESSION[$key];
-        }else{
-            return [];
-        }
+    public function getCache($key) {
+        $cache = new FileCache();
+        return $cache->get($key);
     }
 
-    public function setCache($key,$value){
-        return $_SESSION[$key] = $value;
+    public function setCache($key,$value) {
+        $cache = new FileCache();
+        return $cache->set($key,$value,0);
     }
 
 }
