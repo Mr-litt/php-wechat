@@ -34,6 +34,7 @@ class Pay extends Api
         require_once WECHAT_ROOT."/app/Support/WxpayAPI_php_v3/example/WxPay.JsApiPay.php";
         require_once WECHAT_ROOT."/app/Support/WxpayAPI_php_v3/example/log.php";
 
+        echo "ok";exit;
         //初始化日志
         $logHandler= new \CLogFileHandler("../logs/".date('Y-m-d').'.log');
         $log = \Log::Init($logHandler, 15);
