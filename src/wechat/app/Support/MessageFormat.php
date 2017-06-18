@@ -22,7 +22,7 @@ class MessageFormat
      * @return array
      */
     public function transform($message){
-        $class = get_class($message);
+        $class = is_array($message) ? News::class : get_class($message);
         $prefix = 'format';
         $this->is_customer && $prefix = $prefix.'Customer';
         $handle = $prefix.ucfirst(substr($class, strlen('wechat\app\Support\Message\\')));
@@ -180,7 +180,7 @@ class MessageFormat
                     "Description"=>$new->get('description'),
                     "PicUrl"=>$new->get('picurl'),
                     "Url"=>$new->get('url'),
-                ]
+                ],
             ];
         }
 

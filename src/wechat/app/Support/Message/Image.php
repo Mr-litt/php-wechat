@@ -9,7 +9,12 @@
 
 namespace wechat\app\Support\Message;
 
-
+/**
+ *
+ * Class Image
+ * @package wechat\app\Support\Message
+ * @property string $media_id
+ */
 class Image extends AbstractMessage
 {
 

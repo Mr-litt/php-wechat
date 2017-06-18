@@ -9,7 +9,15 @@
 
 namespace wechat\app\Support\Message;
 
-
+/**
+ * Class Music
+ * @package wechat\app\Support\Message
+ * @property string $music_url
+ * @property string $hq_music_url
+ * @property string $media_id
+ * @property string $title
+ * @property string $description
+ */
 class Music extends AbstractMessage
 {
     protected $type = 'music';

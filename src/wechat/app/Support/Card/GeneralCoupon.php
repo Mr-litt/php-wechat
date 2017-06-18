@@ -8,7 +8,13 @@
 
 namespace wechat\app\Support\Card;
 
-
+/**
+ * Class GeneralCoupon
+ * @package wechat\app\Support\Card
+ * @property string $base_info
+ * @property string $advanced_info
+ * @property string $default_detail
+ */
 class GeneralCoupon extends AbstractCard
 {
 

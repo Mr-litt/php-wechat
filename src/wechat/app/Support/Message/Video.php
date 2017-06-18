@@ -10,6 +10,13 @@
 namespace wechat\app\Support\Message;
 
 
+/**
+ * Class Video
+ * @package wechat\app\Support\Message
+ * @property string $media_id
+ * @property string $title
+ * @property string $description
+ */
 class Video extends AbstractMessage
 {
     protected $type = 'video';

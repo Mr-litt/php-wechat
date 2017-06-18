@@ -9,7 +9,14 @@
 
 namespace wechat\app\Support\Message;
 
-
+/**
+ * Class News
+ * @package wechat\app\Support\Message
+ * @property string $picurl
+ * @property string $url
+ * @property string $title
+ * @property string $description
+ */
 class News extends AbstractMessage
 {
     protected $type = 'news';

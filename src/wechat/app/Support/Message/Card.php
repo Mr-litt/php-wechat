@@ -9,6 +9,11 @@
 
 namespace wechat\app\Support\Message;
 
+/**
+ * Class Card
+ * @package wechat\app\Support\Message
+ * @property string $card_id
+ */
 class Card extends AbstractMessage
 {
     protected $type = 'wxcard';

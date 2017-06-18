@@ -9,7 +9,11 @@
 
 namespace wechat\app\Support\Message;
 
-
+/**
+ * Class Voice
+ * @package wechat\app\Support\Message
+ * @property string $media_id
+ */
 class Voice extends AbstractMessage
 {
     protected $type = 'voice';
