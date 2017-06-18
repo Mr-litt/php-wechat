@@ -52,9 +52,11 @@ class Curl
      * @return mixed
      */
     public static function get($url, $getFields = []){
-        if ($getFields) $getFields = http_build_query($getFields);
+        if ($getFields) {
+            $getFields = http_build_query($getFields);
+            $url .='?'.$getFields;
+        }
         $ch = curl_init();
-        $url .='?'.$getFields;
         curl_setopt($ch, CURLOPT_POST, 0);
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_TIMEOUT, 3);

@@ -38,6 +38,10 @@ class Log
         $date = date("Y-m-d H:i:s");
         $info = "[$level]" . "[$date] " . $message . " in " . $line ."\r\n";
         if($file = Config::get("log")["path"]){
+            $dir = dirname($file);
+            if (is_dir($dir)) {
+                mkdir($dir, 0777, true);
+            }
             file_put_contents($info,$file,FILE_APPEND);
         }
     }

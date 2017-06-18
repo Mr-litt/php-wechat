@@ -32,6 +32,7 @@ class Api extends Base
     private $replaces = [
         'APPID'=>'app_id',
         'APPSECRET'=>'secret',
+        'SECRET'=>'secret',
         'ACCESS_TOKEN'=>'access_token',
         'TOKEN'=>'access_token',
     ];
