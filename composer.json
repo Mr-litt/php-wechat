@@ -1,0 +1,24 @@
+{
+    "name": "mr_litt/wechat",
+    "description": "a easy sdk for wechat app",
+    "keywords": [
+        "wechat",
+        "weixin",
+        "weixin-sdk"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mr_litt",
+            "email": "137057181@qq.com"
+        }
+    ],
+    "require": {
+        "php":">=5.4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "wechat\\": "src/wechat/"
+        }
+    }
+}
