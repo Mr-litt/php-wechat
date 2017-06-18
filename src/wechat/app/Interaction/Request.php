@@ -16,9 +16,36 @@ use wechat\components\Log;
 
 /**
  * Class Request
- * @property mixed|null ToUserName
- * @property mixed|null FromUserName
  * @package wechat\app\Interaction
+ *
+ * @property String $ToUserName
+ * @property String $FromUserName
+ * @property String $CreateTime
+ * @property String $MsgType
+ * @property String $MsgId
+ * //text
+ * @property String $Content
+ * //image
+ * @property String $PicUrl
+ * @property String $MediaId
+ * //voice
+ * @property String $Format
+ * //video
+ * @property String $ThumbMediaId
+ * //location
+ * @property String $Location_X
+ * @property String $Location_Y
+ * @property String $Scale
+ * @property String $Label
+ * //link
+ * @property String $Title
+ * @property String $Description
+ * @property String $Url
+ * //Event
+ * @property String $Event
+ * @property String $EventKey
+ * @property String $Ticket
+ *
  */
 class Request extends AbstractInteraction
 {
@@ -42,6 +69,7 @@ class Request extends AbstractInteraction
             }
         }  catch (\Exception $e){
             Log::error(file_get_contents("php://input"));
+            throw new \Exception("不合法的数据");
         }
     }
 

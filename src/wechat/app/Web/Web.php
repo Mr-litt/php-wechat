@@ -21,10 +21,20 @@ class Web extends Api
 
 
     public function oAuth() {
-        session_start();
+
+        if(!isset($_SESSION)){
+            session_start();
+        }
+
         if (!isset($_SESSION['open_id']) || $_SESSION['open_id'] == '') {//获取open_id
             $code = Input::get('code','');
             if(empty($code)){
+                /**
+                 * snsapi_base（静默授权）：获取用户openid
+                 * snsapi_userinfo（用户授权）：获取用户openid，还会返回获取用户信息的网页授权access_token
+                 *
+                 * 由于用户信息获取可以通过基础access_token获取，所以此处采用静默授权更方便
+                 */
                 $redirect = urlencode(Url::curPageURL());
                 $url = $this->buildUrl(self::SNSAPI_BASE, ['APPID' => $this->app_id, 'REDIRECT_URI' => $redirect]);
                 header("Location:".$url);

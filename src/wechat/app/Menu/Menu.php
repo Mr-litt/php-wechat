@@ -25,7 +25,6 @@ class Menu extends Api
         return $this->http(self::API_GET);
     }
 
-
     public function delete(){
         $this->http(self::API_DELETE);
     }

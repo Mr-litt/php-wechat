@@ -25,7 +25,7 @@ class Js extends Api
         $nonceStr = uniqid();
         $signArray = [
             "noncestr"=>$nonceStr,
-            "jsapi_ticket"=>$this->jsapi_ticket,
+            "jsapi_ticket"=>$this->js_api_ticket,
             "timestamp"=>$timestamp,
             "url"=>Url::curPageURL()
         ];

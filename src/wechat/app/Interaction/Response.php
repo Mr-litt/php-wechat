@@ -45,9 +45,11 @@ class Response extends AbstractInteraction
             $class = get_class($message);
         }
 
-        if(is_subclass_of($class,AbstractMessage::class)){
+        if (is_subclass_of($class,AbstractMessage::class)) {
             $request = Wechat::$app->request;
             $this->content = $this->buildReply($request->FromUserName, $request->ToUserName, $message);
+        } else {
+            throw new \Exception("消息类型不正确");
         }
     }
 
@@ -62,7 +64,7 @@ class Response extends AbstractInteraction
             'ToUserName' => $to,
             'FromUserName' => $from,
             'CreateTime' => time(),
-            'MsgType' => $message->getType(),
+            'MsgType' => is_array($message) ? News::class : $message->getType(),
         ];
         $detail = (new MessageFormat)->transform($message);
         return Xml::build(array_merge($base,$detail));

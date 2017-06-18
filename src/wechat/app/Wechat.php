@@ -9,6 +9,14 @@
 
 namespace wechat\app;
 
+use wechat\Application;
+
+/**
+ * Class Wechat
+ * @package wechat\app
+ *
+ * @property Application $app
+ */
 class Wechat
 {
     public static $app;

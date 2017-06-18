@@ -131,11 +131,11 @@ class Card extends Api
      * @param string $card_id 自定义code必填
      * @return bool
      */
-    public function getCode($code, $card_id = ''){
+    public function getCode($code, $card_id = '') {
 
         $info = [
             'code' => $code,
-            '$card_id'=>$card_id,
+            'card_id'=>$card_id,
             'check_consume'=>true,
         ];
 
@@ -155,7 +155,7 @@ class Card extends Api
      * @throws \Exception
      */
     public function consumeCode($code, $card_id = '') {
-        if($code){
+        if ($code) {
             $info['code'] = $code;
             $card_id && $info['card_id'] = $card_id;
             return $this->http(self::API_CONSUME_CODE, Api::HTTP_TYPE_POST, $info);
@@ -189,6 +189,14 @@ class Card extends Api
             'reasoon' => $reason
         ];
         return $this->http(self::API_CODE_UNAVAILABLE, Api::HTTP_TYPE_POST, $info);
+    }
+
+
+    /**
+     * 卡券签名
+     */
+    public function cardSign(){
+        //todo...
     }
 
 }

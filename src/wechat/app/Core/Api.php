@@ -12,6 +12,7 @@ namespace wechat\app\Core;
 use wechat\app\Wechat;
 use wechat\components\Config;
 use wechat\components\Curl;
+use wechat\components\Log;
 
 
 /**
@@ -20,7 +21,8 @@ use wechat\components\Curl;
  * @property string $app_id
  * @property string $secret
  * @property string $access_token
- * @property string $jsapi_ticket
+ * @property string $js_api_ticket
+ * @property string $card_api_ticket
  */
 class Api extends Base
 {
@@ -36,7 +38,6 @@ class Api extends Base
 
     public function http($url, $method = "get", $field = [], $file_path = '', $head = []){
         $url = $this->buildUrlRequired($url);
-
         if(strtolower($method) == self::HTTP_TYPE_POST){
             if ($file_path && !is_file($file_path)) {
                 throw new \Exception("file is not exist");
@@ -48,12 +49,14 @@ class Api extends Base
         }
 
         if(empty($result)){
-            throw new \Exception("http request not result");
+            Log::error("http请求为空:");
+            throw new \Exception("http请求为空");
         }
 
         $result = json_decode($result,true);
         if($result['errcode'] != 0){
-            throw new \Exception("http request error:".json_encode($result));
+            Log::error("http请求错误:".json_encode($result));
+            throw new \Exception("http请求错误:".json_encode($result));
         }
 
         return new Collection($result);
@@ -69,15 +72,11 @@ class Api extends Base
     }
 
     private function buildUrlRequired($url){
-        $need = [];
         foreach ($this->replaces as $replace => $value) {
             if (strpos($url, $replace) !== false) {
                 $value = $this->$value;
-                $need[$replace] = $value;
+                $url =  $this->buildUrl($url, [$replace=>$value]);
             }
-        }
-        if ($need) {
-            $url =  $this->buildUrl($url, $need);
         }
         return $url;
     }
@@ -95,11 +94,11 @@ class Api extends Base
         return Wechat::$app->access_token->get();
     }
 
-    public function getJs_Access_token(){
-        return Wechat::$app->access_token->get();
+    public function getJs_api_ticket(){
+        return Wechat::$app->js_api_ticket->get();
     }
 
-    public function getJsapi_ticket(){
-        return Wechat::$app->jsapi_ticket->get();
+    public function getCard_api_ticket(){
+        return Wechat::$app->card_api_ticket->get();
     }
 }

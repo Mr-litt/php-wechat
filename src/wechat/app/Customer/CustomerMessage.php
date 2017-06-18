@@ -13,6 +13,7 @@ use wechat\app\Support\Message\AbstractMessage;
 use wechat\app\Support\Message\News;
 use wechat\app\Support\Message\Text;
 use wechat\app\Support\MessageFormat;
+use wechat\components\Log;
 
 
 class CustomerMessage extends Api
@@ -35,8 +36,11 @@ class CustomerMessage extends Api
             $class = get_class($message);
         }
         $contents = '';
-        if(is_subclass_of($class,AbstractMessage::class)){
+        if (is_subclass_of($class,AbstractMessage::class)) {
             $contents = $this->buildReply($open_id, $message);
+        } else {
+            Log::error("消息类型不正确:".$class);
+            throw new \Exception("消息类型不正确");
         }
         $this->http(self::API_SEND,"post",$contents);
     }
@@ -49,7 +53,7 @@ class CustomerMessage extends Api
     protected function buildReply($open_id, $message) {
         $base = [
             'touser' => $open_id,
-            'msgtype' => $message->getType(),
+            'msgtype' => is_array($message) ? News::class : $message->getType(),
         ];
         $MessageFormat = new MessageFormat();
         $MessageFormat->is_customer = true;
