@@ -16,26 +16,27 @@ class Log
     const LEVEL_INfO  = "info";
 
 
-    public static function error($message)
+    public static function error($message, $line = '')
     {
-        self::write($message, self::LEVEL_ERROR);
+        self::write($message, $line, self::LEVEL_ERROR);
     }
 
 
-    public static function warning($message)
+    public static function warning($message, $line = '')
     {
-        self::write($message, self::LEVEL_WARNING);
+        self::write($message, $line, self::LEVEL_WARNING);
     }
 
 
-    public static function info($message)
+    public static function info($message, $line = '')
     {
-        self::write($message, self::LEVEL_INfO);
+        self::write($message, $line, self::LEVEL_INfO);
     }
     
 
-    private static function write($message,$level){
-        $info = "[$level]:" . $message;
+    private static function write($message, $line, $level){
+        $date = date("Y-m-d H:i:s");
+        $info = "[$level]" . "[$date] " . $message . " in " . $line ."\r\n";
         if($file = Config::get("log")["path"]){
             file_put_contents($info,$file,FILE_APPEND);
         }
