@@ -38,7 +38,7 @@ class QrCode extends Api
     }
 
     public function showUrl($ticket) {
-        return $this->buildUrl(self::API_SHOW, ['TICKET' => $ticket]);
+        return $this->buildUrl(self::API_SHOW, ['TICKET' => urlencode($ticket)]);
     }
 
 }

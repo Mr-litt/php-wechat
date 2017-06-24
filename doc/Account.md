@@ -1,0 +1,58 @@
+# Account
+
+## Description
+Account模块即账号管理，主要介绍账号二维码。
+
+生成带参数的二维码：
+为了满足用户渠道推广分析和用户帐号绑定等场景的需要，公众平台提供了生成带参数二维码的接口。使用该接口可以获得多个带不同场景值的二维码，用户扫描后，公众号可以接收到事件推送。
+
+目前有2种类型的二维码：
+1、临时二维码，是有过期时间的，最长可以设置为在二维码生成后的30天（即2592000秒）后过期，但能够生成较多数量。临时二维码主要用于帐号绑定等不要求二维码永久保存的业务场景
+2、永久二维码，是无过期时间的，但数量较少（目前为最多10万个）。永久二维码主要用于适用于帐号绑定、用户来源统计等场景。
+
+用户扫描带场景值二维码时，可能推送以下两种事件：
+如果用户还未关注公众号，则用户可以关注公众号，关注后微信会将带场景值关注事件推送给开发者。
+如果用户已经关注公众号，在用户扫描后会自动进入会话，微信也会将带场景值扫描事件推送给开发者。
+
+获取带参数的二维码的过程包括两步，首先创建二维码ticket，然后凭借ticket到指定URL换取二维码。
+
+## Usage
+```php
+<?php 
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+use wechat\Application;
+
+$options = [
+    'app_id' => '123456',
+    'secret' => '123456789',
+    'token'  => 'wechat',
+    'debug'     => true, //调试模式，默认false
+    'log' => [
+        'level' => 'info',  //调试模式记录级别，默认info
+        'path'  => __DIR__.'/wechat.log',   //日志保存文件，默认/tmp/app.log
+    ],
+];
+
+$app = new Application($options);
+
+//获取qr_code对象
+$qrCode = $app->qr_code;
+
+//创建临时二维码
+$scene_id = 1;
+$expire_seconds = 30;    //该二维码有效时间，以秒为单位。 最大不超过2592000（即30天），此字段如果不填，则默认有效期为30秒。
+$result = $qrCode->createTmp($scene_id, $expire_seconds);
+
+//创建永久二维码
+$scene_id = 1;
+$scene_str = '1';   
+$result = $qrCode->create($scene_id);
+$result = $qrCode->create(0, $scene_str);//字符串参数值
+
+//通过ticket换取二维码
+header('Content-Type:image/jpg');
+$qrCode->showUrl($result->ticket);//直接显示图片
+
+```

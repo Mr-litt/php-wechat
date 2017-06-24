@@ -1,0 +1,46 @@
+# Menu
+
+## Description
+Menu模块即自定义菜单。
+
+注意点：
+
+1、自定义菜单最多包括3个一级菜单，每个一级菜单最多包含5个二级菜单。
+2、一级菜单最多4个汉字，二级菜单最多7个汉字，多出来的部分将会以“...”代替。
+3、创建自定义菜单后，菜单的刷新策略是，在用户进入公众号会话页或公众号profile页时，如果发现上一次拉取菜单的请求在5分钟以前，就会拉取一下菜单，如果菜单有更新，就会刷新客户端的菜单。测试时可以尝试取消关注公众账号后再次关注，则可以看到创建后的效果。
+
+## Usage
+```php
+<?php 
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+use wechat\Application;
+
+$options = [
+    'app_id' => '123456',
+    'secret' => '123456789',
+    'token'  => 'wechat',
+    'debug'     => true, //调试模式，默认false
+    'log' => [
+        'level' => 'info',  //调试模式记录级别，默认info
+        'path'  => __DIR__.'/wechat.log',   //日志保存文件，默认/tmp/app.log
+    ],
+];
+
+$app = new Application($options);
+
+
+//菜单管理
+$menu = $app->menu;
+$info = [
+    'button' => [
+        ['type' => 'click', 'name' => '今日歌曲', 'key' => 'V1001_TODAY_MUSIC'],
+        ['type' => 'view', 'name' => '搜索', 'url' => 'http://www.soso.com/']
+    ]
+];
+$menu->create($info);   //创建
+$menu->get();   //获取
+$menu->delete();    //删除
+
+```
